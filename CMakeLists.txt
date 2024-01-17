@@ -10,4 +10,5 @@ pico_sdk_init()
 
 add_subdirectory(src)
 add_subdirectory(libs/pico-neotrellis) #FROM: git submodule add https://github.com/dcooperdalrymple/pico-neotrellis.git
+add_subdirectory(libs/pi-pico-tone/pico-tone) #FROM: git submodule add https://github.com/martinkooij/pi-pico-tone.git
 #add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/../lib/abi_lib build)

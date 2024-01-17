@@ -3,9 +3,10 @@ add_executable(simonsays
 )
 
 target_link_libraries(simonsays
-    pico_stdlib
-    hardware_i2c
-    pico_neotrellis
+        pico_stdlib
+        hardware_i2c
+        pico_neotrellis
+        pico_tone
 )
 
 pico_enable_stdio_usb(simonsays 1)

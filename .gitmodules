@@ -1,3 +1,6 @@
 [submodule "libs/pico-neotrellis"]
 	path = libs/pico-neotrellis
 	url = https://github.com/dcooperdalrymple/pico-neotrellis.git
+[submodule "libs/pi-pico-tone"]
+	path = libs/pi-pico-tone
+	url = https://github.com/martinkooij/pi-pico-tone.git
