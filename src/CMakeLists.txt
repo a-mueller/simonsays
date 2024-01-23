@@ -1,5 +1,7 @@
 add_executable(simonsays
         main.cpp
+        songs.hpp
+        keypad_map.hpp
 )
 
 target_link_libraries(simonsays
