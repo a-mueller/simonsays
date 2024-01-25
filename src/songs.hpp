@@ -28,5 +28,4 @@ int fiveLittleDucks[] = {
 };
 
 
-// uint8_t happyBirthday_
 #endif //SONGS_HPP
