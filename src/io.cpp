@@ -18,11 +18,11 @@ void init_io() {
     gpio_init(PIN_BTN_SONG_SELECT);
     gpio_set_dir(PIN_BTN_SONG_SELECT, GPIO_IN);
 
-    gpio_init(PIN_BTN_LED_RESET_SONG);
-    gpio_set_dir(PIN_BTN_LED_RESET_SONG, GPIO_OUT);
+    gpio_init(PIN_BTN_LED_SOUND_TOGGLE);
+    gpio_set_dir(PIN_BTN_LED_SOUND_TOGGLE, GPIO_OUT);
 
-    gpio_init(PIN_BTN_RESET_SONG);
-    gpio_set_dir(PIN_BTN_RESET_SONG, GPIO_IN);
+    gpio_init(PIN_BTN_SOUND_TOGGLE);
+    gpio_set_dir(PIN_BTN_SOUND_TOGGLE, GPIO_IN);
 
     gpio_init(PIN_SOUND_SWITCH);
     gpio_set_dir(PIN_SOUND_SWITCH, GPIO_OUT);
@@ -37,7 +37,7 @@ void indicate_startup(NeoTrellis* trellis) {
     gpio_put(PIN_LED_USER_TURN, true);
     gpio_put(PIN_LED_COMPUTER_TURN, true);
     gpio_put(PIN_BTN_LED_SONG_SELECT, true);
-    gpio_put(PIN_BTN_LED_RESET_SONG, true);
+    gpio_put(PIN_BTN_LED_SOUND_TOGGLE, true);
 
     // Test NeoPixels
     for (uint8_t i = 0; i < 16; i++) {
@@ -60,7 +60,7 @@ void all_leds_off() {
     gpio_put(PIN_LED_USER_TURN, false);
     gpio_put(PIN_LED_COMPUTER_TURN, false);
     gpio_put(PIN_BTN_LED_SONG_SELECT, false);
-    gpio_put(PIN_BTN_LED_RESET_SONG, false);
+    gpio_put(PIN_BTN_LED_SOUND_TOGGLE, false);
 }
 
 
@@ -111,5 +111,11 @@ void show_trellis(NeoTrellis *trellis) {
     trellis -> pixels.show();
     sleep_ms(TRELLIS_UPDATE_DELAY_MS);
 }
+
+void switch_sound(bool on) {
+    gpio_put(PIN_BTN_LED_SOUND_TOGGLE, !on);
+    gpio_put(PIN_SOUND_SWITCH, on);
+}
+
 
 

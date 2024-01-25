@@ -46,8 +46,8 @@ void Game::runComputerTurn(NeoTrellis *trellis, Tone *player) {
     advanceToNextNote();
 
     const int note = song[currentPositionInSong * 2];
-    const uint8_t key = note_to_kepad_pos.at(note);
-    const int colour = keypad_pos_to_color.at(key);
+    const uint8_t key = NOTE_TO_KEYPAD_POS.at(note);
+    const int colour = KEYPAD_POS_TO_COLOUR.at(key);
     trellis->pixels.set(key, colour);
     trellis->pixels.show();
     player->tone(note);

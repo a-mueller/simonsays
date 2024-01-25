@@ -46,4 +46,9 @@ void show_user_success_pad(NeoTrellis *trellis);
  */
 void show_trellis(NeoTrellis *trellis);
 
+/**
+ * \brief toggles the sound on/off, only works if the
+ */
+void switch_sound(bool on);
+
 #endif //IO_HPP

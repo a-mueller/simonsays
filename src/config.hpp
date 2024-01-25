@@ -22,8 +22,8 @@
 #define PIN_BTN_LED_SONG_SELECT 5
 #define PIN_BTN_SONG_SELECT 4
 
-#define PIN_BTN_LED_RESET_SONG 6
-#define PIN_BTN_RESET_SONG 7
+#define PIN_BTN_LED_SOUND_TOGGLE 6
+#define PIN_BTN_SOUND_TOGGLE 7
 
 // It seems that if you don't wait a while after setting the neopixels they behave strangely (especially the one at 0)
 #define TRELLIS_UPDATE_DELAY_MS 20

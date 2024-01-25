@@ -20,7 +20,13 @@ enum Mode {
     TURN_FINISH
 };
 
+enum SoundState {
+    ON, OFF
+};
+
 Mode mode = SONG_SELECTION;
+SoundState soundState = ON;
+
 Game game;
 
 NeoTrellis *trellisPtr;
@@ -78,6 +84,18 @@ int main() {
             while (gpio_get(PIN_BTN_SONG_SELECT)) {
                 sleep_ms(10);
             }
+        } else if (gpio_get(PIN_BTN_SOUND_TOGGLE)) {
+            if (soundState == ON) {
+                switch_sound(false);
+                soundState = OFF;
+            } else {
+                switch_sound(true);
+                soundState = ON;
+            }
+            // wait till the button is up again before we go on with the loop
+            while (gpio_get(PIN_BTN_SOUND_TOGGLE)) {
+                sleep_ms(10);
+            }
         } else {
             // game play
             if (mode == TURN_INCORRECT) {
@@ -131,13 +149,13 @@ int main() {
 void keypad_handler(uint8_t key, Keypad::Edge edge) {
     if (edge == Keypad::Edge::RISING) {
         if (mode == TURN_USER) {
-            const int colour = keypad_pos_to_color.at(key);
+            const int colour = KEYPAD_POS_TO_COLOUR.at(key);
             const int correctNote = game.noteAtNextPosition();
 
-            if (note_to_kepad_pos.at(correctNote) == key) {
+            if (NOTE_TO_KEYPAD_POS.at(correctNote) == key) {
                 myPlayerPtr->tone(correctNote);
             } else {
-                myPlayerPtr->tone(kepad_pos_to_note.at(key));
+                myPlayerPtr->tone(KEYPAD_POS_TO_DEFAULT_NOTE.at(key));
             }
 
             trellisPtr->pixels.set(key, colour);
@@ -159,7 +177,7 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
             myPlayerPtr->stop();
 
             // check if that was actually correct
-            const int note = kepad_pos_to_note.at(key);
+            const int note = KEYPAD_POS_TO_DEFAULT_NOTE.at(key);
             const int correct_note = game.noteAtNextPosition();
             if (note != correct_note) {
                 mode = TURN_INCORRECT;
