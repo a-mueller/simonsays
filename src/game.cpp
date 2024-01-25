@@ -21,7 +21,7 @@ bool Game::reachedTargetPosition() const {
 }
 
 bool Game::reachedEnd() const {
-    return currentPositionInSong * 2 + 1 >= songTotalLength;
+    return currentPositionInSong + 1 >= songTotalLength;
 }
 
 

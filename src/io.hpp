@@ -22,6 +22,21 @@ void indicate_startup(NeoTrellis* trellis);
 void all_leds_off();
 
 /**
+ * \brief Switch all leds of that are involved in mode (turns / song selection)
+ */
+void all_mode_leds_off();
+
+/**
+ * \brief indicates it is the user's turn to press buttons
+ */
+void show_user_turn();
+
+/**
+ * \brief inidictates it is the computers turn to press buttons
+ */
+void show_computer_turn();
+
+/**
  * Show the song selection "screen"
  */
 void show_song_selection_mode(NeoTrellis* trellis);

@@ -57,15 +57,20 @@ void indicate_startup(NeoTrellis* trellis) {
 }
 
 void all_leds_off() {
-    gpio_put(PIN_LED_USER_TURN, false);
-    gpio_put(PIN_LED_COMPUTER_TURN, false);
-    gpio_put(PIN_BTN_LED_SONG_SELECT, false);
+    all_mode_leds_off();
     gpio_put(PIN_BTN_LED_SOUND_TOGGLE, false);
 }
 
+void all_mode_leds_off() {
+    gpio_put(PIN_LED_USER_TURN, false);
+    gpio_put(PIN_LED_COMPUTER_TURN, false);
+    gpio_put(PIN_BTN_LED_SONG_SELECT, false);
+}
+
+
 
 void show_song_selection_mode(NeoTrellis *trellis) {
-    all_leds_off();
+    all_mode_leds_off();
     gpio_put(PIN_BTN_LED_SONG_SELECT, true);
 
     trellis->pixels.set(0, COLOR_WHITE);
@@ -116,6 +121,18 @@ void switch_sound(bool on) {
     gpio_put(PIN_BTN_LED_SOUND_TOGGLE, !on);
     gpio_put(PIN_SOUND_SWITCH, on);
 }
+
+void show_computer_turn() {
+    all_mode_leds_off();
+    gpio_put(PIN_LED_COMPUTER_TURN, true);
+}
+
+void show_user_turn() {
+    all_mode_leds_off();
+    gpio_put(PIN_LED_USER_TURN, true);
+}
+
+
 
 
 

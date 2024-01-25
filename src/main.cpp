@@ -76,7 +76,7 @@ int main() {
                 mode = TURN_COMPUTER;
                 game.reset();
                 // turn the leds and trellis off
-                all_leds_off();
+                show_computer_turn();
                 all_trellis_off(&trellis);
             }
 
@@ -111,6 +111,7 @@ int main() {
                 all_trellis_off(&trellis);
 
                 mode = TURN_COMPUTER;
+                show_computer_turn();
             } else if (mode == TURN_FINISH) {
                 show_trellis(&trellis);
 
@@ -121,13 +122,15 @@ int main() {
                 game.reset();
                 mode = TURN_COMPUTER;
 
-                sleep_ms(1000);
+                sleep_ms(2000);
                 all_trellis_off(&trellis);
+                show_computer_turn();
             } else if (mode == TURN_COMPUTER) {
                 if (!game.reachedTargetPosition()) {
                     game.runComputerTurn(&trellis, &myPlayer);
                 } else {
                     mode = TURN_USER;
+                    show_user_turn();
                     game.swichTurn(false);
                 }
             } else if (mode == TURN_USER) {
@@ -136,8 +139,11 @@ int main() {
                 if (game.reachedTargetPosition()) {
                     mode = TURN_COMPUTER;
                     game.swichTurn(true);
+                    show_computer_turn();
                     sleep_ms(500);
                 }
+            } else if (mode == SONG_SELECTION) {
+                show_trellis(&trellis);
             }
 
             sleep_ms(50);
@@ -160,15 +166,16 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
 
             trellisPtr->pixels.set(key, colour);
         } else if (mode == SONG_SELECTION) {
+            trellisPtr->pixels.set(key, COLOR_BLACK);
             if (key == 0) {
                 game.init(happyBirthday, HAPPY_BIRTHDAY_LENGTH);
-                myPlayerPtr->play_melody(T_ADAGIO, 4, happyBirthday);
+                // myPlayerPtr->play_melody(T_ADAGIO, 4, happyBirthday);
             } else if (key == 1) {
                 game.init(wheelsOnTheBus, WHEELS_ON_THE_BUS_LENGTH);
-                myPlayerPtr->play_melody(T_ADAGIO, 5, wheelsOnTheBus);
+                // myPlayerPtr->play_melody(T_ADAGIO, 5, wheelsOnTheBus);
             } else if (key == 2) {
                 game.init(fiveLittleDucks, FIVE_LITTLE_DUCKS_LENGTH);
-                myPlayerPtr->play_melody(T_ADAGIO, FIVE_LITTLE_DUCKS_LENGTH, fiveLittleDucks);
+                // myPlayerPtr->play_melody(T_ADAGIO, FIVE_LITTLE_DUCKS_LENGTH, fiveLittleDucks);
             }
         }
     } else {
@@ -177,9 +184,10 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
             myPlayerPtr->stop();
 
             // check if that was actually correct
-            const int note = KEYPAD_POS_TO_DEFAULT_NOTE.at(key);
             const int correct_note = game.noteAtNextPosition();
-            if (note != correct_note) {
+            const uint8_t correct_key = NOTE_TO_KEYPAD_POS.at(correct_note);
+
+            if (correct_key != key) {
                 mode = TURN_INCORRECT;
             } else {
                 game.advanceToNextNote();
@@ -188,6 +196,7 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
                 }
             }
         } else if (mode == SONG_SELECTION) {
+            trellisPtr->pixels.set(key, COLOR_YELLOW);
             myPlayerPtr->stop();
         }
     }
