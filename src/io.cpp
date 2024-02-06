@@ -73,9 +73,10 @@ void show_song_selection_mode(NeoTrellis *trellis, const bool show) {
     all_mode_leds_off();
     gpio_put(PIN_BTN_LED_SONG_SELECT, true);
 
-    trellis->pixels.set(0, COLOR_BLUE);
+    trellis->pixels.set(0, COLOR_PINK);
     trellis->pixels.set(1, COLOR_RED);
     trellis->pixels.set(2, COLOR_GREEN);
+    trellis->pixels.set(3, COLOR_BLUE);
 
     if (show) {
         trellis->pixels.show();

@@ -40,15 +40,20 @@ void MelodyPlayer::loop(Tone *player) {
 
             const int note = song[currentPositionInSong * 2];
             player->tone(note);
-
             const int toneDuration = abs(song[currentPositionInSong * 2 + 1]);
+            int delay = 400;
+
             if (toneDuration == 8) {
-                nextTone = delayed_by_ms(curTime, 200);
+                delay = 200;
             } else if (toneDuration == 4) {
-                nextTone = delayed_by_ms(curTime, 400);
+                delay = 400;
             } else if (toneDuration == 2) {
-                nextTone = delayed_by_ms(curTime, 800);
+                delay = 800;
             }
+            if (song[currentPositionInSong * 2 + 1] < 0) {
+                delay *= 1.5;
+            }
+            nextTone = delayed_by_ms(curTime, delay);
         }
 
     }

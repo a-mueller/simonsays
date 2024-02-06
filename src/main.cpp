@@ -186,6 +186,10 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
                 game.init(fiveLittleDucks, FIVE_LITTLE_DUCKS_LENGTH);
                 melodyPlayer.init(fiveLittleDucks, FIVE_LITTLE_DUCKS_LENGTH);
                 melodyPlayer.start();
+            } else if (key == 3) {
+                game.init(auldLangSyne, AULD_LANG_SYNE_LENGTH);
+                melodyPlayer.init(auldLangSyne, AULD_LANG_SYNE_LENGTH);
+                melodyPlayer.start();
             }
         }
     } else {
