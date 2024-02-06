@@ -7,6 +7,8 @@ add_executable(simonsays
         io.cpp
         game.hpp
         game.cpp
+        melody_player.hpp
+        melody_player.cpp
 )
 
 target_link_libraries(simonsays

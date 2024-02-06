@@ -39,12 +39,12 @@ void show_computer_turn();
 /**
  * Show the song selection "screen"
  */
-void show_song_selection_mode(NeoTrellis* trellis);
+void show_song_selection_mode(NeoTrellis* trellis, bool show = true);
 
 /**
  * Turn all trellis off (black)
  */
-void all_trellis_off(NeoTrellis* trellis);
+void all_trellis_off(NeoTrellis* trellis, bool show = true);
 
 /**
  * Show the user that they failed via the trellis pad

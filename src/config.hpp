@@ -14,13 +14,13 @@
 // We will set this pin high before playing sound, so make sure there is nothing else on this pin in case you didn't connect it
 #define PIN_SOUND_SWITCH 26
 
-#define PIN_LED_USER_TURN 19
-#define PIN_LED_COMPUTER_TURN 18
+#define PIN_LED_USER_TURN 18
+#define PIN_LED_COMPUTER_TURN 19
 
-// #define MODE_LED 2
-// #define MODE_BTN 3
-#define PIN_BTN_LED_SONG_SELECT 5
-#define PIN_BTN_SONG_SELECT 4
+#define PIN_BTN_LED_SONG_SELECT 2
+#define PIN_BTN_SONG_SELECT 3
+// #define PIN_BTN_LED_SONG_SELECT 5
+// #define PIN_BTN_SONG_SELECT 4
 
 #define PIN_BTN_LED_SOUND_TOGGLE 6
 #define PIN_BTN_SOUND_TOGGLE 7

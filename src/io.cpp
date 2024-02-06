@@ -69,24 +69,29 @@ void all_mode_leds_off() {
 
 
 
-void show_song_selection_mode(NeoTrellis *trellis) {
+void show_song_selection_mode(NeoTrellis *trellis, const bool show) {
     all_mode_leds_off();
     gpio_put(PIN_BTN_LED_SONG_SELECT, true);
 
-    trellis->pixels.set(0, COLOR_WHITE);
+    trellis->pixels.set(0, COLOR_BLUE);
     trellis->pixels.set(1, COLOR_RED);
     trellis->pixels.set(2, COLOR_GREEN);
 
-    trellis->pixels.show();
-    sleep_ms(TRELLIS_UPDATE_DELAY_MS);
+    if (show) {
+        trellis->pixels.show();
+        sleep_ms(TRELLIS_UPDATE_DELAY_MS);
+    }
 }
 
-void all_trellis_off(NeoTrellis *trellis) {
+void all_trellis_off(NeoTrellis *trellis, const bool show) {
     for (uint8_t i = 0; i < 16; i++) {
         trellis->pixels.set(i, COLOR_BLACK);
     }
-    trellis->pixels.show();
-    sleep_ms(TRELLIS_UPDATE_DELAY_MS);
+
+    if (show) {
+        trellis->pixels.show();
+        sleep_ms(TRELLIS_UPDATE_DELAY_MS);
+    }
 }
 
 

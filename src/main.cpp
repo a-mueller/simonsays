@@ -9,6 +9,7 @@
 #include "config.hpp"
 #include "game.hpp"
 #include "keypad_map.hpp"
+#include "melody_player.hpp"
 #include "songs.hpp"
 
 
@@ -28,6 +29,7 @@ Mode mode = SONG_SELECTION;
 SoundState soundState = ON;
 
 Game game;
+MelodyPlayer melodyPlayer;
 
 NeoTrellis *trellisPtr;
 Tone *myPlayerPtr;
@@ -73,6 +75,9 @@ int main() {
                 // turn the led on
                 show_song_selection_mode(&trellis);
             } else {
+                melodyPlayer.stop(&myPlayer);
+                melodyPlayer.reset();
+
                 mode = TURN_COMPUTER;
                 game.reset();
                 // turn the leds and trellis off
@@ -144,6 +149,7 @@ int main() {
                 }
             } else if (mode == SONG_SELECTION) {
                 show_trellis(&trellis);
+                melodyPlayer.loop(&myPlayer);
             }
 
             sleep_ms(50);
@@ -166,16 +172,20 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
 
             trellisPtr->pixels.set(key, colour);
         } else if (mode == SONG_SELECTION) {
-            trellisPtr->pixels.set(key, COLOR_BLACK);
+            all_trellis_off(trellisPtr, false);
+            trellisPtr->pixels.set(key, COLOR_WHITE);
             if (key == 0) {
                 game.init(happyBirthday, HAPPY_BIRTHDAY_LENGTH);
-                // myPlayerPtr->play_melody(T_ADAGIO, 4, happyBirthday);
+                melodyPlayer.init(happyBirthday, HAPPY_BIRTHDAY_LENGTH);
+                melodyPlayer.start();
             } else if (key == 1) {
                 game.init(wheelsOnTheBus, WHEELS_ON_THE_BUS_LENGTH);
-                // myPlayerPtr->play_melody(T_ADAGIO, 5, wheelsOnTheBus);
+                melodyPlayer.init(wheelsOnTheBus, WHEELS_ON_THE_BUS_LENGTH);
+                melodyPlayer.start();
             } else if (key == 2) {
                 game.init(fiveLittleDucks, FIVE_LITTLE_DUCKS_LENGTH);
-                // myPlayerPtr->play_melody(T_ADAGIO, FIVE_LITTLE_DUCKS_LENGTH, fiveLittleDucks);
+                melodyPlayer.init(fiveLittleDucks, FIVE_LITTLE_DUCKS_LENGTH);
+                melodyPlayer.start();
             }
         }
     } else {
@@ -196,8 +206,9 @@ void keypad_handler(uint8_t key, Keypad::Edge edge) {
                 }
             }
         } else if (mode == SONG_SELECTION) {
-            trellisPtr->pixels.set(key, COLOR_YELLOW);
-            myPlayerPtr->stop();
+            show_song_selection_mode(trellisPtr, false);
+            melodyPlayer.stop(myPlayerPtr);
+            // myPlayerPtr->stop();
         }
     }
 }
